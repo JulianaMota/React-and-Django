@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Grid } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const RoomJoinPage = () => {
 	const [ data, setData ] = useState({
 		roomCode: '',
 		error: ''
 	});
+	const history = useHistory();
 
 	const handleTextFieldChange = (e) => {
 		setData((prevData) => {
@@ -19,7 +20,29 @@ const RoomJoinPage = () => {
 	};
 
 	const roomButtonPressed = (e) => {
-		console.log(data);
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				code: data.roomCode
+			})
+		};
+		fetch('/api/join-room', requestOptions)
+			.then((response) => {
+				if (response.ok) {
+					history.push(`/room/${data.roomCode}`);
+				} else {
+					setData((prevData) => {
+						return {
+							...prevData,
+							error: 'Room not found.'
+						};
+					});
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	return (
