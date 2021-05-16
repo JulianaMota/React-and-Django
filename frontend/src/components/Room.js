@@ -10,10 +10,12 @@ const Room = (props) => {
 		isHost: false,
 		showSettings: false
 	});
+	const [ spotifyAuthenticated, setSpotifyAuthenticated ] = useState(false);
 	const { roomCode } = useParams();
 	const history = useHistory();
 
 	const getRoomDetails = () => {
+		console.log('get data');
 		return fetch(`/api/get-room?code=${roomCode}`)
 			.then((response) => {
 				if (!response.ok) {
@@ -23,6 +25,7 @@ const Room = (props) => {
 				return response.json();
 			})
 			.then((data) => {
+				console.log(data);
 				setData((prevData) => {
 					return {
 						...prevData,
@@ -31,7 +34,23 @@ const Room = (props) => {
 						isHost: data.is_host
 					};
 				});
+				if (data.is_host) {
+					authenticateSpotify();
+				}
 			});
+	};
+
+	const authenticateSpotify = () => {
+		console.log('run auth2');
+		fetch('/spotify/is-authenticated').then((response) => response.json()).then((data) => {
+			setSpotifyAuthenticated(data.status);
+			console.log(data.status);
+			if (!data.status) {
+				fetch('/spotify/get-auth-url').then((response) => response.json()).then((data) => {
+					window.location.replace(data.url);
+				});
+			}
+		});
 	};
 
 	const leaveButtonPressed = () => {
@@ -92,8 +111,10 @@ const Room = (props) => {
 			</Grid>
 		);
 	};
+
 	useEffect(() => {
 		getRoomDetails();
+		console.log(data.isHost);
 	}, []);
 
 	return (
