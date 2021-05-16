@@ -1,5 +1,6 @@
 from django.db import models
 
+# spotify local api
 class SpotifyToken(models.Model):
   user = models.CharField(max_length=50, unique=True)
   created_at = models.DateField(auto_now_add=True)
