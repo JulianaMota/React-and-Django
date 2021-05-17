@@ -1,9 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap');
+
+/* VARIABLES */
+:root {
+	/* Colors */
+	--color-black: #000000;
+	--color-white: #fff;
+	--color-dark: #000205;
+	--color-dark-blue: #082d3a;
+	--color-blue: #267491;
+	--color-light-blue: #a7b8b5;
+	--color-cream: #cfc5bc;
+	/* Typefaces */
+	--display-font: 'Lobster', cursive;
+	--text-font: 'Open Sans', sans-serif;
+}
+
+/* GENERAL STYLING */
 html,
 body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	/* color: #fff; */
+	background-image: url(../images/background-cd.jpg);
+	background-position: center;
+	background-size: cover;
 }
 
 #main {
@@ -21,7 +41,45 @@ body {
 
 .center {
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+/* HOMEPAGE STYLING */
+.homepage h2 {
+	font-family: var(--display-font);
+	color: var(--color-white);
+	padding-bottom: 50px;
+}
+.homepage img {
+	width: 250px;
+	margin-bottom: 20px;
+}
+.homepage .question-mark {
+	color: var(--color-light-blue);
+	position: absolute;
+	top: -50px;
+	right: -150px;
+}
+.homepage .question-mark:hover {
+	color: var(--color-dark-blue);
+}
+.homepage .question-mark svg {
+	font-size: 2rem;
+}
+
+.homepage .join-btn {
+	background-color: var(--color-blue);
+	padding: 20px 50px;
+}
+.homepage .join-btn:hover,
+.homepage .create-btn:hover {
+	background-color: var(--color-light-blue);
+	color: var(--color-dark-blue);
+	font-weight: bold;
+}
+.homepage .create-btn {
+	background-color: var(--color-dark-blue);
+	padding: 20px 50px;
 }

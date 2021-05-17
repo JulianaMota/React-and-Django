@@ -130,6 +130,7 @@ const Room = (props) => {
 		const interval = setInterval(() => {
 			getCurrentSong();
 		}, 1000);
+		return () => clearInterval(interval);
 	}, []);
 
 	return (
