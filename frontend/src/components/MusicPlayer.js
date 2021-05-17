@@ -21,6 +21,14 @@ const MusicPlayer = (props) => {
 		fetch('/spotify/play', requestOptions);
 	};
 
+	const skipSong = () => {
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' }
+		};
+		fetch('/spotify/skip', requestOptions);
+	};
+
 	return (
 		<Card>
 			<Grid container alignItems="center">
@@ -42,7 +50,9 @@ const MusicPlayer = (props) => {
 						>
 							{props.is_playing ? <Pause /> : <PlayArrow />}
 						</IconButton>
-						<IconButton>
+
+						<IconButton onClick={() => skipSong()}>
+							{props.votes}/{props.votes_required}
 							<SkipNext />
 						</IconButton>
 					</div>
