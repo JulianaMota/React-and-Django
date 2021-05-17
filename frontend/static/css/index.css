@@ -24,6 +24,7 @@ body {
 	background-image: url(../images/background-cd.jpg);
 	background-position: center;
 	background-size: cover;
+	font-family: var(--text-font) !important;
 }
 
 #main {
@@ -68,18 +69,59 @@ body {
 .homepage .question-mark svg {
 	font-size: 2rem;
 }
-
 .homepage .join-btn {
 	background-color: var(--color-blue);
 	padding: 20px 50px;
+	font-weight: bold;
 }
 .homepage .join-btn:hover,
 .homepage .create-btn:hover {
 	background-color: var(--color-light-blue);
-	color: var(--color-dark-blue);
-	font-weight: bold;
+	font-weight: 600;
 }
 .homepage .create-btn {
 	background-color: var(--color-dark-blue);
 	padding: 20px 50px;
+	font-weight: 600;
+}
+
+/* Info component styling */
+.info-container {
+	background-color: var(--color-white);
+	padding: 20px 40px;
+	border-radius: 10px;
+}
+.info-container h4 {
+	font-family: var(--display-font);
+	padding-bottom: 30px;
+}
+.info-container h6 {
+	font-weight: 600;
+}
+.info-container p {
+	padding: 0 10% 20px;
+}
+.info-container button {
+	color: var(--color-blue);
+}
+.info-container button svg {
+	font-size: 40px;
+}
+.info-container a {
+	margin-top: 20px;
+	background-color: var(--color-blue);
+}
+.info-container a:hover {
+	background-color: var(--color-light-blue);
+}
+
+/* Create room form styling */
+.create-container {
+	background-color: var(--color-white);
+	padding: 30px 40px;
+	border-radius: 10px;
+}
+.create-container h4 {
+	font-family: var(--display-font);
+	padding-bottom: 30px;
 }
