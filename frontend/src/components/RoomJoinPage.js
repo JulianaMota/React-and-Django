@@ -13,7 +13,7 @@ const RoomJoinPage = () => {
 		setData((prevData) => {
 			return {
 				...prevData,
-				roomCode: e.target.value
+				roomCode: e.target.value.toUpperCase()
 			};
 		});
 		console.log(data);
@@ -46,7 +46,7 @@ const RoomJoinPage = () => {
 	};
 
 	return (
-		<Grid container spacing={1}>
+		<Grid container spacing={1} className="join-container">
 			<Grid item xs={12} align="center">
 				<Typography variant="h4" component="h4">
 					Join a Room

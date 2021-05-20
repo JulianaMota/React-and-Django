@@ -30,19 +30,29 @@ const MusicPlayer = (props) => {
 	};
 
 	return (
-		<Card>
+		<Card className="music-container">
 			<Grid container alignItems="center">
 				<Grid item align="center" xs={4}>
-					<img src={props.image_url} height="100%" width="100%" />
+					<img
+						src={
+							props.image_url ? (
+								props.image_url
+							) : (
+								'../../static/images/song-placeholder.png'
+							)
+						}
+						height="100%"
+						width="100%"
+					/>
 				</Grid>
 				<Grid item align="center" xs={8}>
 					<Typography component="h5" variant="h5">
-						{props.title}
+						{props.title ? props.title : 'Music Title'}
 					</Typography>
 					<Typography color="textSecondary" variant="subtitle1">
-						{props.artist}
+						{props.artist ? props.artist : 'Artist Name'}
 					</Typography>
-					<div>
+					<Grid item align="center" xs={12} className="controls">
 						<IconButton
 							onClick={() => {
 								props.is_playing ? pauseSong() : playSong();
@@ -52,10 +62,12 @@ const MusicPlayer = (props) => {
 						</IconButton>
 
 						<IconButton onClick={() => skipSong()}>
-							{props.votes}/{props.votes_required}
 							<SkipNext />
 						</IconButton>
-					</div>
+						<Typography>
+							Votes to Skip {props.votes ? props.votes : 0}/{props.votes_required ? props.votes_required : 0}
+						</Typography>
+					</Grid>
 				</Grid>
 			</Grid>
 			<LinearProgress variant="determinate" value={songProgress} />

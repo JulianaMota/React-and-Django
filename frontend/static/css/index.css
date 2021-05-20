@@ -39,14 +39,9 @@ body {
 	width: 100%;
 	height: 100%;
 }
-
 .center {
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	padding: 10vh 20px;
 }
-
 /* HOMEPAGE STYLING */
 .homepage h2 {
 	font-family: var(--display-font);
@@ -60,8 +55,8 @@ body {
 .homepage .question-mark {
 	color: var(--color-light-blue);
 	position: absolute;
-	top: -50px;
-	right: -150px;
+	top: 0;
+	right: 0;
 }
 .homepage .question-mark:hover {
 	color: var(--color-dark-blue);
@@ -85,7 +80,7 @@ body {
 	font-weight: 600;
 }
 
-/* Info component styling */
+/* INFO COMPONENT STYLING */
 .info-container {
 	background-color: var(--color-white);
 	padding: 20px 40px;
@@ -115,13 +110,146 @@ body {
 	background-color: var(--color-light-blue);
 }
 
-/* Create room form styling */
+/* CREATE ROOM COMPONENT STYLING */
 .create-container {
 	background-color: var(--color-white);
-	padding: 30px 40px;
+	padding: 30px 20px;
 	border-radius: 10px;
 }
 .create-container h4 {
 	font-family: var(--display-font);
+	color: var(--color-dark-blue);
 	padding-bottom: 30px;
+}
+
+.create-container .info {
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+	color: var(--color-light-blue);
+}
+.create-container button {
+	background-color: var(--color-blue);
+	margin-top: 20px;
+}
+.create-container a {
+	background-color: var(--color-dark-blue);
+}
+.create-container a:hover,
+.create-container button:hover {
+	background-color: var(--color-light-blue);
+}
+.create-container .MuiRadio-colorPrimary.Mui-checked {
+	color: var(--color-blue);
+}
+
+/* JOIN ROM STYLING */
+.join-container {
+	background-color: var(--color-white);
+	padding: 30px 20px;
+	border-radius: 10px;
+}
+.join-container h4 {
+	font-family: var(--display-font);
+	color: var(--color-dark-blue);
+	padding-bottom: 30px;
+}
+.join-container button {
+	background-color: var(--color-blue);
+	margin-top: 20px;
+}
+.join-container a {
+	background-color: var(--color-dark-blue);
+}
+.join-container .MuiOutlinedInput-root {
+	border-radius: 20px;
+}
+.join-container a:hover,
+.join-container button:hover {
+	background-color: var(--color-light-blue);
+}
+
+/* ROOM COMPONENT STYLING */
+.room-container {
+	background-color: var(--color-white);
+	padding: 30px 20px;
+	border-radius: 10px;
+}
+.room-container .settings-btn {
+	background-color: var(--color-blue);
+	margin-top: 20px;
+}
+.room-container button:hover {
+	background-color: var(--color-light-blue);
+}
+
+.room-container .leave-btn {
+	background-color: var(--color-dark-blue);
+	margin-top: 0;
+}
+.room-container h4 {
+	padding-bottom: 20px;
+	font-size: 30px;
+}
+.room-container h4 span {
+	font-family: var(--display-font);
+}
+
+/* SETTINGS STYLING  */
+.create-container .create-container {
+	padding: 0;
+}
+.create-container .close-btn {
+	background-color: var(--color-dark-blue);
+	margin-top: 0;
+}
+
+/* MUSIC COMPONENT STYLING */
+.music-container {
+	background-color: var(--color-cream) !important;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.music-container h5 {
+	font-family: var(--display-font);
+	color: var(--color-dark-blue);
+	font-size: 30px;
+}
+.music-container h6 {
+	padding: 5px 0 30px 0;
+	color: var(--color-blue);
+	font-size: 18px;
+	font-weight: 500;
+}
+.music-container .controls {
+	padding: 0 20%;
+	box-sizing: border-box;
+}
+.music-container .controls button {
+	width: fit-content;
+}
+.music-container .controls p {
+	color: var(--color-blue);
+	font-size: 15px;
+	font-weight: 500;
+}
+.music-container .controls svg {
+	fill: var(--color-dark-blue);
+}
+
+/* DESKTOP */
+@media only screen and (min-width: 600px) {
+	.center {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.homepage .question-mark {
+		color: var(--color-light-blue);
+		position: absolute;
+		top: 10%;
+		right: 0;
+	}
 }

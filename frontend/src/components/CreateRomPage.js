@@ -146,8 +146,8 @@ const CreateRoomPage = (props) => {
 			</Grid>
 			<Grid item xs={12} align="center">
 				<FormControl component="fieldset">
-					<FormHelperText>
-						<span align="center">Guest Control of Playback State</span>
+					<FormHelperText className="info">
+						Guest Control of Playback State
 					</FormHelperText>
 					<RadioGroup
 						row
@@ -171,6 +171,7 @@ const CreateRoomPage = (props) => {
 			</Grid>
 			<Grid item xs={12} align="center">
 				<FormControl>
+					<FormHelperText className="info">Votes required to skip song</FormHelperText>
 					<TextField
 						required={true}
 						type="number"
@@ -178,9 +179,6 @@ const CreateRoomPage = (props) => {
 						inputProps={{ min: 1, style: { textAlign: 'center' } }}
 						onChange={handelVotesChange}
 					/>
-					<FormHelperText>
-						<span align="center">Votes required to skip song</span>
-					</FormHelperText>
 				</FormControl>
 			</Grid>
 			{props.update ? renderUpdateButtons() : renderCreateButtons()}

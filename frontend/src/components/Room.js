@@ -75,7 +75,7 @@ const Room = (props) => {
 
 	const renderSettings = () => {
 		return (
-			<Grid container spacing={1}>
+			<Grid container spacing={1} className="create-container">
 				<Grid item xs={12} align="center">
 					<CreateRoomPage
 						update={true}
@@ -90,6 +90,7 @@ const Room = (props) => {
 						color="secondary"
 						variant="contained"
 						onClick={() => updateShowSettings(false)}
+						className="close-btn"
 					>
 						Close
 					</Button>
@@ -105,6 +106,7 @@ const Room = (props) => {
 					variant="contained"
 					color="primary"
 					onClick={() => updateShowSettings(true)}
+					className="settings-btn"
 				>
 					Settings
 				</Button>
@@ -138,16 +140,21 @@ const Room = (props) => {
 			{data.showSettings ? (
 				renderSettings()
 			) : (
-				<Grid container spacing={1}>
+				<Grid container spacing={1} className="room-container">
 					<Grid item xs={12} align="center">
 						<Typography variant="h4" component="h4">
-							Code: {roomCode}
+							<span>Code:</span> {roomCode}
 						</Typography>
 					</Grid>
 					<MusicPlayer {...song} />
 					{data.isHost ? renderSettingsButton() : null}
 					<Grid item xs={12} align="center">
-						<Button variant="contained" color="secondary" onClick={leaveButtonPressed}>
+						<Button
+							variant="contained"
+							color="secondary"
+							className="leave-btn"
+							onClick={leaveButtonPressed}
+						>
 							Leave Room
 						</Button>
 					</Grid>
