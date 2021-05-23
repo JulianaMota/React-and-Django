@@ -19,18 +19,20 @@ const CreateRoomPage = (props) => {
 	const [ errorMsg, setErrorMsg ] = useState('');
 	const [ data, setData ] = useState({
 		guestCanPause: props.guestCanPause,
-		votesToSkip: props.votesToSkip
+		votesToSkip: props.votesToSkip,
+		hostName: props.hostName,
+		description: props.description
 	});
 	const history = useHistory();
 
-	const handelVotesChange = (e) => {
-		setData((prevData) => {
-			return {
-				...prevData,
-				votesToSkip: e.target.value
-			};
-		});
-	};
+	// const handelVotesChange = (e) => {
+	// 	setData((prevData) => {
+	// 		return {
+	// 			...prevData,
+	// 			votesToSkip: e.target.value
+	// 		};
+	// 	});
+	// };
 
 	const handleGuestCanPause = (e) => {
 		setData((prevData) => {
@@ -41,13 +43,34 @@ const CreateRoomPage = (props) => {
 		});
 	};
 
+	// const handelHostName = (e) => {
+	// 	setData((prevData) => {
+	// 		return {
+	// 			...prevData,
+	// 			hostName: e.target.value
+	// 		};
+	// 	});
+	// };
+	const handelInput = (e) => {
+		const { value, name } = e.target;
+		setData((prevData) => {
+			return {
+				...prevData,
+				[name]: value
+			};
+		});
+		console.log(data);
+	};
+
 	const handleRoomButtonPressed = (e) => {
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				votes_to_skip: data.votesToSkip,
-				guest_can_pause: data.guestCanPause
+				guest_can_pause: data.guestCanPause,
+				host_name: data.hostName,
+				description: data.description
 			})
 		};
 
@@ -63,7 +86,9 @@ const CreateRoomPage = (props) => {
 			body: JSON.stringify({
 				votes_to_skip: data.votesToSkip,
 				guest_can_pause: data.guestCanPause,
-				code: props.roomCode
+				code: props.roomCode,
+				host_name: data.hostName,
+				description: data.description
 			})
 		};
 
@@ -145,6 +170,19 @@ const CreateRoomPage = (props) => {
 				</Typography>
 			</Grid>
 			<Grid item xs={12} align="center">
+				<FormControl>
+					<FormHelperText className="info">Host Name</FormHelperText>
+					<TextField
+						required={true}
+						type="text"
+						defaultValue={props.hostName}
+						inputProps={{ style: { textAlign: 'center' } }}
+						name="hostName"
+						onChange={handelInput}
+					/>
+				</FormControl>
+			</Grid>
+			<Grid item xs={12} align="center">
 				<FormControl component="fieldset">
 					<FormHelperText className="info">
 						Guest Control of Playback State
@@ -177,7 +215,24 @@ const CreateRoomPage = (props) => {
 						type="number"
 						defaultValue={props.votesToSkip}
 						inputProps={{ min: 1, style: { textAlign: 'center' } }}
-						onChange={handelVotesChange}
+						name="votesToSkip"
+						onChange={handelInput}
+					/>
+				</FormControl>
+			</Grid>
+
+			<Grid item xs={12} align="center">
+				<FormControl>
+					<FormHelperText className="info">Description</FormHelperText>
+					<TextField
+						required={true}
+						type="text"
+						multiline={true}
+						defaultValue={props.description}
+						inputProps={{ style: { textAlign: 'center' } }}
+						rowsMax={2}
+						name="description"
+						onChange={handelInput}
 					/>
 				</FormControl>
 			</Grid>
@@ -191,6 +246,8 @@ CreateRoomPage.defaultProps = {
 	guestCanPause: true,
 	update: false,
 	roomCode: null,
+	hostName: '',
+	description: '',
 	updateCallback: () => {}
 };
 

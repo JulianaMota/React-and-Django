@@ -194,6 +194,16 @@ body {
 .room-container h4 span {
 	font-family: var(--display-font);
 }
+.room-container h6 {
+	font-weight: 600;
+	text-transform: capitalize;
+	padding-bottom: 10px;
+}
+.room-container h6 span {
+	font-weight: 100;
+	text-transform: lowercase;
+	font-size: 16px;
+}
 
 /* SETTINGS STYLING  */
 .create-container .create-container {

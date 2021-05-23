@@ -9,10 +9,13 @@ const Room = (props) => {
 		votesToSkip: 2,
 		guestCanPause: false,
 		isHost: false,
-		showSettings: false
+		showSettings: false,
+		hostName: '',
+		description: ''
 	});
 	const [ spotifyAuthenticated, setSpotifyAuthenticated ] = useState(false);
 	const [ song, setSong ] = useState({});
+	const [ hasSong, setHasSong ] = useState(false);
 	const { roomCode } = useParams();
 	const history = useHistory();
 
@@ -27,13 +30,15 @@ const Room = (props) => {
 				return response.json();
 			})
 			.then((data) => {
-				// console.log(data);
+				console.log(data);
 				setData((prevData) => {
 					return {
 						...prevData,
 						votesToSkip: data.votes_to_skip,
 						guestCanPause: data.guest_can_pause,
-						isHost: data.is_host
+						isHost: data.is_host,
+						hostName: data.host_name,
+						description: data.description
 					};
 				});
 				if (data.is_host) {
@@ -83,6 +88,8 @@ const Room = (props) => {
 						guestCanPause={data.guestCanPause}
 						roomCode={roomCode}
 						updateCallback={getRoomDetails}
+						hostName={data.hostName}
+						description={data.description}
 					/>
 				</Grid>
 				<Grid item xs={12} align="center">
@@ -123,7 +130,14 @@ const Room = (props) => {
 					return response.json();
 				}
 			})
-			.then((data) => setSong(data));
+			.then((data) => {
+				setSong(data);
+				setHasSong(true);
+			})
+			.catch((err) => {
+				setHasSong(false);
+				// console.log(err.message);
+			});
 	};
 
 	useEffect(() => {
@@ -132,6 +146,7 @@ const Room = (props) => {
 		const interval = setInterval(() => {
 			getCurrentSong();
 		}, 1000);
+
 		return () => clearInterval(interval);
 	}, []);
 
@@ -144,6 +159,18 @@ const Room = (props) => {
 					<Grid item xs={12} align="center">
 						<Typography variant="h4" component="h4">
 							<span>Code:</span> {roomCode}
+						</Typography>
+					</Grid>
+					<Grid item xs={4} align="left">
+						<Typography variant="h6" component="h6">
+							<span>Host: </span>
+							{data.hostName}
+						</Typography>
+					</Grid>
+					<Grid item xs={8} align="left">
+						<Typography variant="h6" component="h6">
+							<span>Description: </span>
+							{data.description}
 						</Typography>
 					</Grid>
 					<MusicPlayer {...song} />
