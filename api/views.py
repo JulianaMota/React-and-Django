@@ -14,12 +14,16 @@ class RoomView(generics.ListAPIView):
   queryset = Room.objects.all()
   serializer_class = RoomSerializer
 
+# GET A ROOM
 class GetRoom(APIView):
   serializer_class = RoomSerializer
   lookup_url_kwarg = 'code'
 
   def get(self, request, format=None):
+    #GET ROOM CODE
     code = request.GET.get(self.lookup_url_kwarg)
+
+    #FIND IF ROOM CODE EXISTS AND IF IT HAS DATA
     if code != None:
       room = Room.objects.filter(code=code)
       if len(room) > 0:
@@ -30,14 +34,19 @@ class GetRoom(APIView):
 
     return Response({'Bad Request': 'Code paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
+# JOIN A ROOM
 class JoinRoom(APIView):
   lookup_url_kwarg = 'code'
 
   def post(self, request, format=None):
+    #CHECK SESSION CREATED
     if not self.request.session.exists(self.request.session.session_key):
       self.request.session.create()
 
+    #GET ROOM CODE
     code = request.data.get(self.lookup_url_kwarg)
+
+    #FIND ROOM BY CODE AND JOIN ROOM
     if code != None:
       room_result = Room.objects.filter(code=code)
       if len(room_result) > 0:
@@ -49,14 +58,16 @@ class JoinRoom(APIView):
 
     return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status=status.HTTP_400_BAD_REQUEST)
 
-
+# CREATE A ROOM
 class CreateRoomView(APIView):
   serializer_class = CreateRoomSerializer
 
+  #FIND IF HAS SESSION
   def post(self, request, format=None):
     if not self.request.session.exists(self.request.session.session_key):
       self.request.session.create()
 
+    # CHECK IF FIELDS ARE VALID
     serializer = self.serializer_class(data=request.data)
     if serializer.is_valid():
       guest_can_pause = serializer.data.get('guest_can_pause')
@@ -64,7 +75,8 @@ class CreateRoomView(APIView):
       host_name = serializer.data.get('host_name')
       description = serializer.data.get('description')
       host = self.request.session.session_key
-      
+
+      #fIND ROOM AND UPDATE INFO ELSE CRETE A NEW ONE
       queryset = Room.objects.filter(host=host)
       if queryset.exists():
         room = queryset[0]
@@ -83,21 +95,28 @@ class CreateRoomView(APIView):
 
     return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
+# CHECK IF USER IS IN ROOM
 class UserInRoom(APIView):
   def get(self, request, format=None):
+    #CHECK IF SESSION EXISTS
     if not self.request.session.exists(self.request.session.session_key):
       self.request.session.create()
 
+    
     data={
       'code': self.request.session.get('room_code')
     }
     return JsonResponse(data, status=status.HTTP_200_OK)
 
+# LEAVE A ROOM
 class LeaveRoom(APIView):
   def post(self, request, format=None):
+    # CHEKC IF SESSION HAS ROOM CODE
     if 'room_code' in self.request.session:
+      #REMOVE CODE FORM SESSION
       self.request.session.pop('room_code')
       host_id = self.request.session.session_key
+      # FIND THE ROOM IF IS THE HOST AND THEN DELETE THE ROOM
       room_results = Room.objects.filter(host = host_id)
       if len(room_results) > 0:
         room = room_results[0]
@@ -105,6 +124,7 @@ class LeaveRoom(APIView):
     
     return Response({'message': 'Success'}, status=status.HTTP_200_OK)
 
+# UPDATE A ROOM
 class UpdateRoom(APIView):
   serializer_class = UpdateRoomSerializer
 

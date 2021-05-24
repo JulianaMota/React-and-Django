@@ -25,15 +25,6 @@ const CreateRoomPage = (props) => {
 	});
 	const history = useHistory();
 
-	// const handelVotesChange = (e) => {
-	// 	setData((prevData) => {
-	// 		return {
-	// 			...prevData,
-	// 			votesToSkip: e.target.value
-	// 		};
-	// 	});
-	// };
-
 	const handleGuestCanPause = (e) => {
 		setData((prevData) => {
 			return {
@@ -43,14 +34,6 @@ const CreateRoomPage = (props) => {
 		});
 	};
 
-	// const handelHostName = (e) => {
-	// 	setData((prevData) => {
-	// 		return {
-	// 			...prevData,
-	// 			hostName: e.target.value
-	// 		};
-	// 	});
-	// };
 	const handelInput = (e) => {
 		const { value, name } = e.target;
 		setData((prevData) => {
@@ -59,7 +42,6 @@ const CreateRoomPage = (props) => {
 				[name]: value
 			};
 		});
-		console.log(data);
 	};
 
 	const handleRoomButtonPressed = (e) => {
